@@ -1,0 +1,37 @@
+plugins {
+    id 'java'
+    id 'io.quarkus'
+    id 'com.google.cloud.tools.jib' version '3.1.4'
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {
+    implementation 'io.quarkus:quarkus-container-image-jib'
+    implementation 'io.quarkus:quarkus-smallrye-openapi'
+    implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
+    implementation 'io.quarkus:quarkus-resteasy'
+    implementation 'io.quarkus:quarkus-arc'
+    testImplementation 'io.quarkus:quarkus-junit5'
+    testImplementation 'io.rest-assured:rest-assured'
+}
+
+group 'org.acme'
+version '1.0.0-SNAPSHOT'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+compileJava {
+    options.encoding = 'UTF-8'
+    options.compilerArgs << '-parameters'
+}
+
+compileTestJava {
+    options.encoding = 'UTF-8'
+}
